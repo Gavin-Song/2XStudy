@@ -5,9 +5,7 @@ import json
 
 def download_video(video_url):
   yt = pytube.YouTube(video_url)
-  video = yt.streams.filter(progressive=True) \
-    .order_by('resolution') \
-    .desc() \
+  video = yt.streams.filter(adaptive=True) \
     .first()
 
   video_data = yt.player_config_args.get('player_response').get('videoDetails')
