@@ -41,3 +41,10 @@ p {
     font-family: 'Jomolhari', serif;
     text-align: center;
 }
+
+.empty-state {
+    margin: auto;
+    width: 250px;
+    max-width: 90%;
+    display: block;
+}
