@@ -85,7 +85,3 @@ class CreateAbridgedVideo:
 
         abridged_clip = concatenate_videoclips(abridged_parts)    
         abridged_clip.write_videofile(sub_video_dir+video_name+"_abridged.mp4")
-
-    # Call this method to empty the resources used for creating the abridged video.
-    def close_video(self):
-        cap.release()
