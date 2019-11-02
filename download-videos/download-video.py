@@ -3,6 +3,13 @@ import os
 import datetime
 import json
 
+def get_video_id(video_url):
+  yt = pytube.YouTube(video_url)
+  video_data = yt.player_config_args.get('player_response').get('videoDetails')
+  video_id = video_data['videoId']
+
+  return video_id
+
 def download_video(video_url):
   yt = pytube.YouTube(video_url)
   video = yt.streams.filter(progressive=True) \
@@ -29,6 +36,4 @@ def download_video(video_url):
   output_file = 'meta_data.json'
   with open('./saves/' + video_id + '/' + output_file, 'w+') as f:
     json.dump(meta_data, f)
-
-video_url = input('Enter a YouTube video URL: ')
-download_video(video_url)
+  return video_id
