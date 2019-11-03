@@ -1,0 +1,24 @@
+{
+  "name": "2xstudy",
+  "version": "1.0.0",
+  "description": "Learn at twice the speed!",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gavin-Song/2XStudy.git"
+  },
+  "author": "TheHumbleOnes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gavin-Song/2XStudy/issues"
+  },
+  "homepage": "https://github.com/Gavin-Song/2XStudy#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.4"
+  }
+}

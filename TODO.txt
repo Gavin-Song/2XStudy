@@ -1,0 +1,3 @@
+sudo apt-get install libavcodec-extra-53
+
+Chain together subprocess calls
