@@ -1,9 +1,6 @@
 1. save converted saves to localstorage
 2. Notify user if there are no saves ree 
 
-
 audio restart
 audio play - toggle pause and shit
 edit
-
-logo

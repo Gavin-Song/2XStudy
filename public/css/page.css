@@ -84,3 +84,29 @@ video {
     right: 40px;
     bottom: 120px;
 }
+
+#video-speed-control {
+    width: 100%;
+    text-align: right;
+}
+
+#video-speed-control button {
+    background-color: #999;
+    color: #eee;
+    border: none;
+    padding: 5px 15px;
+    transition: background-color 0.2s;
+}
+
+#video-speed-control button:hover {
+    background-color: #666;
+    color: #eee;
+    border: none;
+    padding: 5px 15px;
+    transition: background-color 0.2s;
+}
+
+#video-speed-control .active {
+    background-color: #333 !important;
+    transition: background-color 0.2s;
+}

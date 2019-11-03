@@ -47,9 +47,21 @@
         <br><br>
 
         <h2>Abriged Video (xx% reduction)</h2><br>
-        <video width="100%" height="auto" src="test.mp4" type="video/mp4" controls>
+        <video id="main-vid" width="100%" height="auto" src="test.mp4" type="video/mp4" controls>
             Your browser does not support the video tag.
         </video>
+        <div id="video-speed-control">
+            <button id="video-speed-0.25" onclick="videoSpeed(0.25)">0.25x</button>
+            <button id="video-speed-0.5" onclick="videoSpeed(0.5)">0.5x</button>
+            <button id="video-speed-0.75" onclick="videoSpeed(0.75)">0.75x</button>
+            <button id="video-speed-1" class="active" onclick="videoSpeed(1)">1x</button>
+            <button id="video-speed-1.25" onclick="videoSpeed(1.25)">1.25x</button>
+            <button id="video-speed-1.5" onclick="videoSpeed(1.5)">1.5x</button>
+            <button id="video-speed-1.75" onclick="videoSpeed(1.75)">1.75x</button>
+            <button id="video-speed-2" onclick="videoSpeed(2)">2x</button>
+            <button id="video-speed-2.5" onclick="videoSpeed(2.5)">2.5x</button>
+            <button id="video-speed-3" onclick="videoSpeed(3)">3x</button>
+        </div>
 
         <br><br><br>
         <h2>Transcription</h2>
@@ -119,6 +131,7 @@
 
     <script src="js/qrcode.js"></script>
     <script src="js/share.js"></script>
+    <script src="js/video.js"></script>
 </body>
 
 </html>

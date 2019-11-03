@@ -17,9 +17,10 @@ function loadStudySets() {
 
     /* Create list of study sets */
     if (false) {
-
-    } else
+        
+    } else { // Empty state
         content.innerHTML = '<div style="text-align: center; color: #888">' +
                             '<img src="img/empty-state.png" class="empty-state"><br>' +
                             'Looks like you have no study sets :(</div>';
+    }
 }
