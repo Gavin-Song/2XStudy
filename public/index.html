@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>2XStudy</title>
+    <meta name="description" content="An app to transcribe and abridge youtube videos for studying">
+    <meta name="author" content="TheHumbleOnes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/index.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Jomolhari|Montserrat&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="title-bar">
+        <a href="/"><img src="img/logo.png" class="logo"></a>
+        <ul class="nav">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="https://github.com/Gavin-Song/2XStudy" target="_blank">Github</a></li>
+        </ul>
+    </div>
+    <div class="input-container">
+        <br><br><br>
+        <br><br><br>
+        <br><br>
+        <form action='/api/download' method='POST'>
+            <input name='videoUrl' class="input search-input" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" type="text">
+            <button type="submit" class="button" style="margin-left: 10px" type="submit">Convert</button><br>
+        </form>
+        
+        <p>
+            Generate shareable study guides from youtube videos
+        </p>
+        <br><br>
+
+        <div id="content">
+            <div class="grid">
+                <ul id="content-list">
+                    <li>Test</li>
+                    <li>Test2</li>
+                    <li>Test2</li>
+                    <li>Test2</li>
+                    <li>Test2</li>
+                    <li>Test2</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- NO JS ENABLED -->
+    <noscript>
+        <div class="modal" style="background-color: red" id="modal">
+            <button onclick="document.getElementById('modal').style.display = 'none';"
+                class="invisible-button inline-big-button">
+                <i class="material-icons">close</i></button>
+            Please enable javascript!
+        </div>
+    </noscript>
+
+    <script src="js/convert.js"></script>
+</body>
+</html>

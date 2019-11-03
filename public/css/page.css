@@ -1,0 +1,112 @@
+.page-container {
+    width: 80%;
+    padding: 0 10%;
+    margin: auto;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 0;
+}
+
+@media only screen and (max-width: 500px) {
+    .page-container {
+        width: 100%;
+        padding: 0 10%;
+        margin: 0;
+        box-sizing: border-box;
+        position: relative;
+    }
+}
+
+h1, h2{
+    font-family: 'Jomolhari', serif;
+    font-weight: normal;
+    margin: 0;
+}
+
+p {
+    line-height: 1.4em;
+    font-size: 12pt;
+    margin-top: 20px;
+}
+
+video {
+    box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.1);
+}
+
+.round-button {
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    background-color: transparent;
+    color: #333;
+    border: 1.5px solid #666;
+    box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.15);
+    transition: background-color 0.2s;
+}
+
+.round-button i {
+    position: relative;
+    top: 3px;
+}
+
+.round-button:hover {
+    color: #555;
+    background-color: rgba(0, 0, 0, 0.05);
+    transition: background-color 0.2s;
+}
+
+.invisible-button {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.inline-big-button {
+    display: inline-block;
+    font-size: 16pt;
+}
+
+/* Absolutely placed buttons */
+.back-button {
+    position: absolute;
+    left: 20px;
+    top: 110px;
+}
+
+.edit-button {
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
+}
+
+.share-button {
+    position: fixed;
+    right: 40px;
+    bottom: 120px;
+}
+
+#video-speed-control {
+    width: 100%;
+    text-align: right;
+}
+
+#video-speed-control button {
+    background-color: #999;
+    color: #eee;
+    border: none;
+    padding: 5px 15px;
+    transition: background-color 0.2s;
+}
+
+#video-speed-control button:hover {
+    background-color: #666;
+    color: #eee;
+    border: none;
+    padding: 5px 15px;
+    transition: background-color 0.2s;
+}
+
+#video-speed-control .active {
+    background-color: #333 !important;
+    transition: background-color 0.2s;
+}

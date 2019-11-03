@@ -2,12 +2,23 @@ from subprocess import Popen, PIPE
 import os
 
 FFMPEG_DIR = "./process_video/ffmpeg/ffmpeg"
-CUT_DIR = "./video_snippets/"
+CUT_DIR_BASE = "./public/saves/{}/video_snippets/"
+CUT_DIR = ""
 NO_LOG = ["-hide_banner", "-loglevel", "panic"]
 NO_LOG_STR = "-hide_banner -loglevel panic"
 
-TEMP_FILE = "temp.mp4"
+TEMP_FILE = "temp2.mp4"
 TEMP_TXT = "temp.txt"
+PADDING = 1
+
+
+def set_cut_dir(video_id):
+    """
+    Sets cut dir to video id
+    :param video_id
+    """
+    global CUT_DIR
+    CUT_DIR = CUT_DIR_BASE.format(video_id)
 
 
 def run_process(command, args):
@@ -24,7 +35,7 @@ def run_process(command, args):
     :raises: Exception if stderr occurs
     """
     args = [command] + args + NO_LOG
-    process = Popen(args) #, stdout=PIPE, stderr=PIPE)
+    process = Popen(args, stdout=PIPE, stderr=PIPE)
     stdout, stderr = process.communicate()
     if stderr:
         raise Exception(stderr)
@@ -63,7 +74,11 @@ def cut_video(video, out, start, end):
     """
     diff = format_time(end - start)
     start = format_time(start)
-    run_process(FFMPEG_DIR, ["-ss", start, "-i", video, "-t", diff, "-async", "1", out, "-y"])
+    run_process(FFMPEG_DIR, [
+        "-ss", start, "-i", video, "-t", diff,
+        "-c:v", "libx264", "-crf", "18", "-c:a", "copy", # Copy and re-encode
+         out, "-y"
+    ])
 
 
 def fast_forward_video(video, factor=5):
@@ -118,13 +133,13 @@ def process_videos(video, breaks):
         current_break = breaks[i]
         current_file_name = CUT_DIR + "{}.mp4".format(i)
 
-        start, end = list(breaks[i].keys())[0], list(breaks[i + 1]).keys()[0]
+        start, end = list(breaks[i].keys())[0], list(breaks[i + 1].keys())[0]
         cut_video(video, current_file_name, start, end)
 
         if len(current_break[start]) == 0:  # Silence
             fast_forward_video(current_file_name)
             to_delete.append(current_file_name)
 
-    concat([CUT_DIR + "{}.mp4".format(i) for i in range(len(breaks) - 1)], "abridged.mp4")
+    # concat([CUT_DIR + "{}.mp4".format(i) for i in range(len(breaks) - 1)], "abridged.mp4")
     for f in to_delete:
         os.remove(f)
