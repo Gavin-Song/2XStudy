@@ -52,6 +52,8 @@ def extract_audio(youtube, video_id):
         "160k", "-ar", "48000", SAVE_DIR_FORMAT.format(video_id) + "temp.mp3"
     ])
 
+    temp_times = []
+
     for i in range(1, len(caption_list), 4):
         sub = caption_list[i].split(' --> ')    # [hhh:mmm:ss,uuu, hhh:mmm:ss,uuu]
         time = []
@@ -65,26 +67,43 @@ def extract_audio(youtube, video_id):
             time_var[j] += float(time[0]) * 360 + float(time[1]) * 60 + float(time[2])
 
         # create entries in dictionary 'timestamps'
-        timestamps.append({time_var[0] - 0.01 - PADDING : caption_list[i + 1]})
-        timestamps.append({time_var[1] + PADDING : ""})
-
+        if caption_list[i + 1] != "":
+            temp_times.append([time_var[0] - 0.01, time_var[1], caption_list[i + 1]])
+        # timestamps.append({time_var[0] - 0.01 : caption_list[i + 1]})
+        # timestamps.append({time_var[1] : ""})
 
     # Export audio clips
     prev, previ = 0.0, 0
+    num_valid = 0
+
+    for i, val in enumerate(temp_times):
+        if i == len(temp_times) - 1:
+            break
+        if temp_times[i + 1][0] - temp_times[i][1] < 5:
+            temp_times[i][1] = temp_times[i + 1][1]
+            temp_times[i][2] += " " + temp_times[i + 1][2]
+            temp_times.pop(i + 1)
+            
+    timestamps.append({ 0 : "" })
+    for i in range(len(temp_times) - 1):
+        timestamps.append({ temp_times[i][0] : temp_times[i][2] })
+        timestamps.append({ temp_times[i][1] : "" })
+    timestamps.append({ temp_times[-1][1] : "" })
+
     for val in timestamps:
         keys = list(val.keys())
         if prev != keys[0]:
             # Slice audio from prev to here and export
             if list(timestamps[num].values())[0] != "":
-                pass
                 process_video.run_process(process_video.FFMPEG_DIR, [
                     "-y", "-ss", process_video.format_time(prev),
                     "-t", process_video.format_time(keys[0] - prev),
                     "-i", SAVE_DIR_FORMAT.format(video_id) + "temp.mp3",
                     "-acodec", "copy",
                     "-async", "1",
-                    SAVE_DIR_FORMAT.format(video_id) + "audio_snippets/{}.mp3".format(num)
+                    SAVE_DIR_FORMAT.format(video_id) + "audio_snippets/{}.mp3".format(num_valid)
                 ])
+                num_valid += 1
             num += 1
         prev, previ = keys[0], num
 

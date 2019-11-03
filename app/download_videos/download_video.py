@@ -15,8 +15,13 @@ def get_video_id(video_url):
 
 def download_video(video_url):
     video_id, yt = get_video_id(video_url)
+
+    # Try finding captions to test if video is valid
+    caption = yt.captions.get_by_language_code("en") or yt.captions.all()[0]
+    caption_list = caption.generate_srt_captions().splitlines()
+
     if os.path.exists('./public/saves/' + video_id):
-        return yt, video_id
+        return yt, video_id, {}
 
     video = yt.streams.filter(progressive=True) \
         .order_by('resolution') \
@@ -41,6 +46,5 @@ def download_video(video_url):
     output_file = 'meta_data.json'
     with open('./public/saves/' + video_id + '/' + output_file, 'w') as f:
         json.dump(meta_data, f)
-    return yt, video_id
+    return yt, video_id, meta_data
 
-download_video(sys.argv[1])

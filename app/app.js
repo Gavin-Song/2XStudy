@@ -10,17 +10,20 @@ app.use(express.static('public'));
 app.post('/api/download', (req, res) => {
 	// These two lines of code download the YouTube Video based on the user-provided link
 	const pythonProcess = spawn('python3', ["./download-and-process-video.py", req.body.videoUrl]);
+	let sent = false;
 
-	pythonProcess.stdout.on('data', (data) => {
-		console.log(`stdout: ${data}`);
+	pythonProcess.stdout.on('data', data => {
+		data = data.toString();
+		if (data.startsWith('DONE') && !sent)
+			res.send(data.toString());
 	});
-	pythonProcess.stderr.on('data', (data) => {
-		console.error(`stderr: ${data}`);
+	pythonProcess.stderr.on('data', data => {
+		console.log(data.toString())
+		lines = data.toString().split('\n');
+		res.send('ERROR ' + lines[lines.length - 2]);
+		sent = true;
 	});
-	pythonProcess.on('close', (code) => {
-		console.log(`child process exited with code ${code}`);
-	});
-	res.send('Page to Display After Processsing/Speeding Up Video');
+	pythonProcess.on('close', code => {});
 });
 
 app.listen(5500, function () {

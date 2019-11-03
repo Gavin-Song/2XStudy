@@ -136,10 +136,10 @@ def process_videos(video, breaks):
         start, end = list(breaks[i].keys())[0], list(breaks[i + 1].keys())[0]
         cut_video(video, current_file_name, start, end)
 
-        if len(current_break[start]) == 0:  # Silence
-            fast_forward_video(current_file_name)
-            to_delete.append(current_file_name)
+        # if len(current_break[start]) == 0:  # Silence
+            # fast_forward_video(current_file_name)
+            # to_delete.append(current_file_name)
 
     # concat([CUT_DIR + "{}.mp4".format(i) for i in range(len(breaks) - 1)], "abridged.mp4")
-    for f in to_delete:
-        os.remove(f)
+    # for f in to_delete:
+    #     os.remove(f)
