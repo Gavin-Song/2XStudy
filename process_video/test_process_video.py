@@ -19,7 +19,7 @@ if __name__ == "__main__":
     breaks = []
     tool = CreateAbridgedVideo("./saves/"+file_name,breaks)
     video_length_factor = tool.get_video_length()/alternating_parts
-    speech = True
+    speech = False
     for i in range(alternating_parts):
         status = ""
         if speech:

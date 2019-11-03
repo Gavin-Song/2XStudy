@@ -10,12 +10,12 @@ saves the breaks and non-break sections of the video into separate
 files for display on the generated webpage transcription.
 """
 class CreateAbridgedVideo:
-    subclips = []
-
     # Pass the video in as a file (w/ ./saves/<video id>/<video name>.mp4); breaks is an array of dictionaries of video timestamp info
     def __init__(self,video,breaks):
         self.video = video
         self.breaks = breaks
+        self.v = VideoFileClip(self.video) # VideoFileClip(<path of original video>)
+        self.v = self.v.set_fps(int(round(self.v.fps)))
     
     def get_video_length(self):
         return VideoFileClip(self.video).duration
@@ -31,8 +31,6 @@ class CreateAbridgedVideo:
         if not os.path.exists(snippets_dir):
             os.makedirs(snippets_dir)
         
-        v = VideoFileClip(self.video,target_resolution=(720,1280)) # VideoFileClip(<path of original video>)
-        v = v.set_fps(int(round(v.fps)))
         for i in range(len(self.breaks)):
             if i < len(self.breaks)-1:           
                 temp2 = list(self.breaks[i+1].keys())
@@ -40,23 +38,19 @@ class CreateAbridgedVideo:
                 temp1 = list(self.breaks[i].keys())
                 time1 = temp1[0]
 
-                snippet = v.subclip(time1,time2) # .subclip(<time1>,<time2>)
+                snippet = self.v.subclip(time1,time2) # .subclip(<time1>,<time2>)
                 if len(self.breaks[i][time1]) > 0 and len(self.breaks[i+1][time2]) == 0:
-                    self.subclips.append({snippet:"speech"})
                     snippet.write_videofile(self.helper_merge_directories(snippets_dir,video_name+"_part"+str(i+1)+"_speech.mp4"),threads=8,fps=8,verbose=False,logger=None)    # .write_videofile(<output_video_path>, optional parameters possible)
                 else:
-                    self.subclips.append({snippet:"silence"})
                     snippet.write_videofile(self.helper_merge_directories(snippets_dir,video_name+"_part"+str(i+1)+"_silence.mp4"),threads=8,fps=8,verbose=False,logger=None)
             else:
                 temp = list(self.breaks[i].keys())
                 time = temp[0]
 
-                snippet = v.subclip(time,v.duration) 
+                snippet = self.v.subclip(time,self.v.duration) 
                 if len(self.breaks[i][time]) > 0: 
-                    self.subclips.append({snippet:"speech"})
                     snippet.write_videofile(self.helper_merge_directories(snippets_dir,video_name+"_part"+str(i+1)+"_speech.mp4"),threads=8,fps=8,verbose=False,logger=None)
                 else:
-                    self.subclips.append({snippet:"silence"})
                     snippet.write_videofile(self.helper_merge_directories(snippets_dir,video_name+"_part"+str(i+1)+"_silence.mp4"),threads=8,fps=8,verbose=False,logger=None)
 
     # Fast forwards new videos and combines the parts together.
@@ -69,21 +63,34 @@ class CreateAbridgedVideo:
 
         abridged_parts = []     
         
-        for i in range(len(self.subclips)):
-            temp = list(self.subclips[i].values())
-            status = temp[0]
+        for i in range(len(self.breaks)):
+            if i < len(self.breaks)-1:           
+                temp2 = list(self.breaks[i+1].keys())
+                time2 = temp2[0]
+                temp1 = list(self.breaks[i].keys())
+                time1 = temp1[0]
 
-            temp = list(self.subclips[i].keys())
-            video_part = temp[0]
-            if status == "silence":
-                abridged_parts.append(video_part.speedx(factor=5))  # Speed up silent parts by 5x
-                video_part.close()
+                snippet = self.v.subclip(time1,time2) # .subclip(<time1>,<time2>)
+                if len(self.breaks[i][time1]) > 0 and len(self.breaks[i+1][time2]) == 0:
+                    abridged_parts.append(snippet)  # Don't speed up speech parts.
+                else:
+                    abridged_parts.append(snippet.speedx(factor=5)) # Speed up the silent parts by 5 times.
+                snippet.reader.close()
+                snippet.audio.reader.close_proc()
             else:
-                abridged_parts.append(video_part)    # Leave speech parts as they already are
-                video_part.close()
+                temp = list(self.breaks[i].keys())
+                time = temp[0]
+
+                snippet = self.v.subclip(time,self.v.duration) 
+                if len(self.breaks[i][time]) > 0:
+                    abridged_parts.append(snippet)  # Don't speed up speech parts.
+                else:
+                    abridged_parts.append(snippet.speedx(factor=5)) # Speed up the silent parts by 5 times.
+                snippet.reader.close()
+                snippet.audio.reader.close_proc()
 
         abridged_clip = concatenate_videoclips(abridged_parts)  
-        abridged_clip.write_videofile(self.helper_merge_directories(sub_video_dir,video_name+"_abridged.mp4"),threads=8,fps=30,verbose=False,logger=None)
+        abridged_clip.write_videofile(self.helper_merge_directories(sub_video_dir,video_name+"_abridged.mp4"),verbose=False,logger=None)
 
     # Helper method to combine original video file directory with new video file directory
     # Note: use with caution: pass in the directories to combine with the order dependency imposed by argument order
