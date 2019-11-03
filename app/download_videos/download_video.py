@@ -15,7 +15,7 @@ def get_video_id(video_url):
 
 def download_video(video_url):
     video_id, yt = get_video_id(video_url)
-    if os.path.exists('./saves/' + video_id):
+    if os.path.exists('./public/saves/' + video_id):
         return yt, video_id
 
     video = yt.streams.filter(progressive=True) \
@@ -29,17 +29,17 @@ def download_video(video_url):
     video_length_in_seconds = video_data['lengthSeconds']
     video_length_formatted = str(datetime.timedelta(seconds=int(video_length_in_seconds)))
 
-    newpath = './saves/' + video_id
+    newpath = './public/saves/' + video_id
     if not os.path.exists(newpath):
         os.makedirs(newpath)
 
-    video.download('./saves/' + video_id, 'temp')
+    video.download('./public/saves/' + video_id, 'temp')
 
     meta_data = {'video_id': video_id, 'video_title': video_title, \
                 'video_author': video_author, 'video_length': video_length_formatted}
 
     output_file = 'meta_data.json'
-    with open('./saves/' + video_id + '/' + output_file, 'w') as f:
+    with open('./public/saves/' + video_id + '/' + output_file, 'w') as f:
         json.dump(meta_data, f)
     return yt, video_id
 

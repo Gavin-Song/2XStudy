@@ -28,8 +28,10 @@
         <br><br><br>
         <br><br>
 
-        <input class="input search-input" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" type="text">
-        <button class="button" style="margin-left: 10px">Convert</button><br>
+        <form id="form" action="/api/download" method="POST">
+            <input class="input search-input" id="videoUrl" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" type="text">
+            <button class="button" style="margin-left: 10px" type="submit">Convert</button><br>
+        </form>
         <p>
             Generate shareable study guides from youtube videos
         </p>
@@ -60,5 +62,6 @@
     </noscript>
 
     <script src="js/convert.js"></script>
+    <script src="js/form.js"></script>
 </body>
 </html>
