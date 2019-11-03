@@ -74,7 +74,7 @@ for i, b in enumerate(breakpoints):
   Your browser does not support the audio element.
 </audio>
 
-<video width="100%" src="/saves/{video_id}/video_snippets/{id2}.mp4" muted loop></video>
+<video width="50%" src="/saves/{video_id}/video_snippets/{id2}.mp4" muted loop></video>
 
 <table class="text-snippet" style="width: calc(100% + 160px); position: relative; left: -160px">
     <tr>
