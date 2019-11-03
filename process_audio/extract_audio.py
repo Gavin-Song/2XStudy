@@ -71,4 +71,4 @@ def extract_audio(url):
     file_obj = open("timestamps.json", "w")
     file_obj.write(json_file)
 
-extract_audio('https://www.youtube.com/watch?v=zAGVQLHvwOY')
+# test video: extract_audio('https://www.youtube.com/watch?v=zAGVQLHvwOY')
