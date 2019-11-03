@@ -30,7 +30,11 @@ app.post('/api/download', (req, res) => {
 	res.send('Page to Display After Processsing/Speeding Up Video')
 });
 
-port = process.env.PORT || 5500;
-app.listen(port, () => {
+app.get('/error', (req, res) => {
+	res.sendFile('404.html', { root: __dirname + '/public'});
+});
+
+port = process.env.PORT || 8080;
+app.listen(8080, () => {
 	console.log(`server running on port ${port}`);
 });
