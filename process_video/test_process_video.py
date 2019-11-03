@@ -17,7 +17,7 @@ if __name__ == "__main__":
     breaks = [{0:""},{5:"bbb"},{10:""},{15:"bbb"},{20:""},{25:"bbb"},{30:""},{35:"bbb"},{40:""},{45:"bbb"},{50:""},{55:"bbb"},{60:""},{65:"bbb"},{70:""},{75:"bbb"},{80:""},{85:"bbb"}]
 #    breaks = [{0:""},{2:"bsdf"},{5:""}]
     start_time = time.time()
-    tool = CreateAbridgedVideo("./saves/"+file_name,breaks)
+    tool = CreateAbridgedVideo("./saves/"+file_name,breaks) # Assume ./saves/ folder already exists
     tool.break_apart_video("./saves/snippets/")
     tool.abridge_video("./saves/")
     print("The processing took {0:.2f} seconds.".format(time.time()-start_time))

@@ -7,7 +7,8 @@ of breaking apart the video into parts depending on the location
 of the breaks in the video and combining those parts into an
 abridged video to be saved onto the user's computer. It also
 saves the breaks and non-break sections of the video into separate
-files for display on the generated webpage transcription.
+files for display on the generated webpage transcription. 
+IMPORTANT NOTE: Assume ./saves/ folder already exists.
 """
 class CreateAbridgedVideo:
     # Pass the video in as a file (w/ ./saves/<video id>/<video name>.mp4); breaks is an array of dictionaries of video timestamp info
