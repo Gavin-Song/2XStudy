@@ -34,9 +34,9 @@ class CreateAbridgedVideo:
         for i in range(len(self.breaks)):
             if i < len(self.breaks)-1:           
                 temp2 = list(self.breaks[i+1].keys())
-                time2 = temp2[0]
+                time2 = float(temp2[0])
                 temp1 = list(self.breaks[i].keys())
-                time1 = temp1[0]
+                time1 = float(temp1[0])
 
                 snippet = self.v.subclip(time1,time2) # .subclip(<time1>,<time2>)
                 if len(self.breaks[i][time1]) > 0 and len(self.breaks[i+1][time2]) == 0:
@@ -45,7 +45,7 @@ class CreateAbridgedVideo:
                     snippet.write_videofile(self.helper_merge_directories(snippets_dir,video_name+"_part"+str(i+1)+"_silence.mp4"),threads=8,fps=8,verbose=False,logger=None)
             else:
                 temp = list(self.breaks[i].keys())
-                time = temp[0]
+                time = float(temp[0])
 
                 snippet = self.v.subclip(time,self.v.duration) 
                 if len(self.breaks[i][time]) > 0: 
@@ -66,9 +66,9 @@ class CreateAbridgedVideo:
         for i in range(len(self.breaks)):
             if i < len(self.breaks)-1:           
                 temp2 = list(self.breaks[i+1].keys())
-                time2 = temp2[0]
+                time2 = float(temp2[0])
                 temp1 = list(self.breaks[i].keys())
-                time1 = temp1[0]
+                time1 = float(temp1[0])
 
                 snippet = self.v.subclip(time1,time2) # .subclip(<time1>,<time2>)
                 if len(self.breaks[i][time1]) > 0 and len(self.breaks[i+1][time2]) == 0:
@@ -79,7 +79,7 @@ class CreateAbridgedVideo:
                 snippet.audio.reader.close_proc()
             else:
                 temp = list(self.breaks[i].keys())
-                time = temp[0]
+                time = float(temp[0])
 
                 snippet = self.v.subclip(time,self.v.duration) 
                 if len(self.breaks[i][time]) > 0:
