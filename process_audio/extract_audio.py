@@ -18,7 +18,7 @@ goals:
         add new entry to dictionary:
             key: time where audio switches to or from silence and speech
             value: the transcription from current time to the next time
-        create audio snippet from previous time to current time in dictionary
+        create audio snippet for each caption in dictionary
         save audio snippet to saves/audio_snippets
     save dictionary to saves/transcriptions.json
 '''
