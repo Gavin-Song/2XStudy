@@ -10,6 +10,8 @@ saves the breaks and non-break sections of the video into separate
 files for display on the generated webpage transcription. 
 IMPORTANT NOTE: Assume ./saves/ folder already exists.
 """
+
+
 class CreateAbridgedVideo:
     # Pass the video in as a file (w/ ./saves/<video id>/<video name>.mp4); breaks is an array of dictionaries of video timestamp info
     def __init__(self,video,breaks):
@@ -19,7 +21,7 @@ class CreateAbridgedVideo:
         self.v = self.v.set_fps(int(round(self.v.fps))) # Rounding frame rate to a whole number to avoid edge-case errors.
     
     def get_video_length(self):
-        return VideoFileClip(self.video).durationW
+        return VideoFileClip(self.video).duration
 
     def set_breaks(self,breaks):
         self.breaks = breaks
@@ -41,18 +43,18 @@ class CreateAbridgedVideo:
 
                 snippet = self.v.subclip(time1,time2) # .subclip(<time1>,<time2>)
                 if len(self.breaks[i][time1]) > 0 and len(self.breaks[i+1][time2]) == 0:
-                    snippet.write_videofile(self.helper_merge_directories(snippets_dir,video_name+"_part"+str(i+1)+"_speech.mp4"),fps=8,verbose=False,logger=None)    # .write_videofile(<output_video_path>, optional parameters possible)
+                    snippet.write_videofile(self.helper_merge_directories(snippets_dir,video_name+"_part"+str(i+1)+"_speech.mp4"),verbose=False,logger=None)    # .write_videofile(<output_video_path>, optional parameters possible)
                 else:
-                    snippet.write_videofile(self.helper_merge_directories(snippets_dir,video_name+"_part"+str(i+1)+"_silence.mp4"),fps=8,verbose=False,logger=None)
+                    snippet.write_videofile(self.helper_merge_directories(snippets_dir,video_name+"_part"+str(i+1)+"_silence.mp4"),verbose=False,logger=None)
             else:
                 temp = list(self.breaks[i].keys())
                 time = float(temp[0])
 
                 snippet = self.v.subclip(time,self.v.duration) 
                 if len(self.breaks[i][time]) > 0: 
-                    snippet.write_videofile(self.helper_merge_directories(snippets_dir,video_name+"_part"+str(i+1)+"_speech.mp4"),fps=8,verbose=False,logger=None)
+                    snippet.write_videofile(self.helper_merge_directories(snippets_dir,video_name+"_part"+str(i+1)+"_speech.mp4"),verbose=False,logger=None)
                 else:
-                    snippet.write_videofile(self.helper_merge_directories(snippets_dir,video_name+"_part"+str(i+1)+"_silence.mp4"),fps=8,verbose=False,logger=None)
+                    snippet.write_videofile(self.helper_merge_directories(snippets_dir,video_name+"_part"+str(i+1)+"_silence.mp4"),verbose=False,logger=None)
 
     # Fast forwards new videos and combines the parts together.
     def abridge_video(self,sub_video_dir):
