@@ -4,6 +4,9 @@
 
 **Important:** See more information about this project [here](https://devpost.com/software/2xstudy-yhl6w0). 
 
+## How to Run This App
+Click this [link](https://x-study-257820.appspot.com/), enter in a YouTube channel (educational preferably), and see the results displayed right below the search box. 
+
 ## 2XStudy - In a Nutshell
 2XStudy is a web-based application that allows learners and educators to extract the most useful and productive information from any YouTube videos (educational ones for ex.). The user simply goes to our website (with a custom domain), enters in a YouTube video url of his/her choice, and sees an abridged edition of the inputted video, with all non-relevant parts (silent sections) of the video omitted. Video snippets paired with audio transcriptions from the most relevant parts of the video are then generated right below the url box and shortened video. All video processing occurs behind the scenes in a server. Used with education YouTube videos, such as those found on Khan Academy, 2XStudy promises to give students a much more efficient educational experience and teachers an effective tool to teach with videos.
 
