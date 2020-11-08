@@ -1,7 +1,7 @@
 # 2XStudy
 You can find 2XStudy [here](https://two-x-study.herokuapp.com/index.html). As this is a RPI hackathon project, you can find the official devpost [here](https://devpost.com/software/2xstudy-yhl6w0). You can find the team repository [here](https://github.com/Gavin-Song/2XStudy). 
 
-2XStudy is a web application that can improve the delivery of educational content from YouTube videos for learners and educators. To use it, enter the url corresponding to a YouTube video into the input bar, click "Convert", and wait for the application to process the video. The intended result is an abridged edition of the video, with all non-relevant parts (silent sections) of the video omitted. Video snippets paired with audio transcriptions from the most relevant parts of the video are generated right below the url box and shortened video. All video processing occurs behind the scenes in a server. 
+2XStudy is a web application that can improve the delivery of content from YouTube videos for learners and educators. To use it, enter the url corresponding to a YouTube video into the input bar, click "Convert", and wait for the application to process the video. The intended result is an abridged edition of the video, with all non-relevant parts (silent sections) of the video omitted. Video snippets paired with audio transcriptions from the most relevant parts of the video are generated right below the url box and shortened video. All video processing occurs behind the scenes in a server. 
 
 ## Technologies
 **Front-end:** [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML), [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS), and [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/) 
